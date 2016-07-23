@@ -1,6 +1,9 @@
 package geonames
 
-import "strconv"
+import (
+	"log"
+	"strconv"
+)
 
 const alternateNamesURL = `alternateNames.zip`
 
@@ -43,9 +46,16 @@ func AlternateNames() ([]*AlternateName, error) {
 			return true
 		}
 
-		id, _ := strconv.Atoi(string(raw[0]))
-		geonameId, _ := strconv.Atoi(string(raw[1]))
-		boolTrue := "1"
+		id, err := strconv.Atoi(string(raw[0]))
+		if err != nil {
+			log.Printf("while converting alternate name %s modification id: %s", string(raw[0]), err.Error())
+			return true
+		}
+		geonameId, err := strconv.Atoi(string(raw[1]))
+		if err != nil {
+			log.Printf("while converting alternate name %s modification geoname id: %s", string(raw[1]), err.Error())
+			return true
+		}
 
 		result = append(result, &AlternateName{
 			Id:              id,
