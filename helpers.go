@@ -11,6 +11,7 @@ const (
 	geonamesURL   = "http://download.geonames.org/export/dump/"
 	commentSymbol = byte('#')
 	newLineSymbol = byte('\n')
+	boolTrue      = "1"
 )
 
 func httpGet(url string) ([]byte, error) {
