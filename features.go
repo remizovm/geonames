@@ -56,7 +56,7 @@ func Features(iso2code string) ([]*Feature, error) {
 
 	parse(data, 0, func(raw [][]byte) bool {
 		if len(raw) != 19 {
-			return false
+			return true
 		}
 
 		geonameId, _ := strconv.Atoi(string(raw[0]))
