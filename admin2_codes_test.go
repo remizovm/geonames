@@ -15,9 +15,7 @@ func TestAdmin2Codes(t *testing.T) {
 		Convey("Result should be correct", func() {
 			So(result, ShouldNotBeNil)
 			So(result, ShouldNotBeEmpty)
-			So(len(result), ShouldEqual, 40633)
 			So(result[0].Name, ShouldEqual, "Shighnan District")
-			So(result[len(result)-1].Name, ShouldEqual, "Umguza District")
 		})
 	})
 }
