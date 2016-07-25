@@ -17,6 +17,7 @@
 - Admin2 codes (UTF8)
 - Admin1 codes (ASCII)
 - User Tags
+- Postal Codes
 
 ## Credits
 - [Mikhail Remizov](https://github.com/remizovm) - Author
