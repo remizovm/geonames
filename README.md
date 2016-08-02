@@ -1,4 +1,4 @@
-# [Geonames](http://github.com/remizovm/geonames) [![GoDoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://godoc.org/github.com/remizovm/geonames) [![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/remizovm/geonames/master/LICENSE)
+# [Geonames](http://github.com/remizovm/geonames) [![GoDoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://godoc.org/github.com/remizovm/geonames) [![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/remizovm/geonames/master/LICENSE)[![Travis](https://travis-ci.org/remizovm/geonames.svg?branch=master)]
 
 #### Golang wrapper over the [geonames.org](http://www.geonames.org) website [dump](http://download.geonames.org/export/dump/).
 
