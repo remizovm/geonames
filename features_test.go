@@ -15,7 +15,7 @@ func TestFeatures(t *testing.T) {
 		Convey("Result should be correct", func() {
 			So(result, ShouldNotBeNil)
 			So(result, ShouldNotBeEmpty)
-			So(result[0].AsciiName, ShouldEqual, "Stantsiya Krasnopartyzans'ka")
+			So(result[0].ASCIIName, ShouldEqual, "Stantsiya Krasnopartyzans'ka")
 		})
 	})
 }

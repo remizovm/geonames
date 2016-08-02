@@ -7,6 +7,7 @@ import (
 
 const userTagsURL = `userTags.zip`
 
+// UserTags returns all available user tags for any objects of the system
 func UserTags() (map[int][]string, error) {
 	var err error
 
@@ -30,13 +31,13 @@ func UserTags() (map[int][]string, error) {
 		if len(raw) != 2 {
 			return true
 		}
-		geonameId, err := strconv.Atoi(string(raw[0]))
+		geonameID, err := strconv.Atoi(string(raw[0]))
 		if err != nil {
 			log.Printf("while parsing user tag geoname id %s: %s", string(raw[0]), err.Error())
 			return true
 		}
 
-		result[geonameId] = append(result[geonameId], string(raw[1]))
+		result[geonameID] = append(result[geonameID], string(raw[1]))
 		return true
 	})
 

@@ -15,7 +15,7 @@ func TestCountryInfo(t *testing.T) {
 		Convey("Result should be correct", func() {
 			So(result, ShouldNotBeNil)
 			So(result, ShouldNotBeEmpty)
-			So(result[0].Iso2Code, ShouldEqual, "AD")
+			So(result[3041565].Iso2Code, ShouldEqual, "AD")
 		})
 	})
 }

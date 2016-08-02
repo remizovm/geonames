@@ -9,7 +9,7 @@ import (
 
 func TestDeletes(t *testing.T) {
 	Convey("Test Deletes handler", t, func() {
-		dt := time.Now()
+		dt := time.Now().UTC()
 		year := dt.Year()
 		month := int(dt.Month())
 		day := dt.Day()

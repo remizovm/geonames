@@ -2,20 +2,22 @@ package geonames
 
 import "strconv"
 
-const admin1CodesAsciiURL = `admin1CodesASCII.txt`
+const admin1CodesASCIIURL = `admin1CodesASCII.txt`
 
-type Admin1CodeAscii struct {
+// Admin1CodeASCII represents a single admin1 code encoded in ASCII
+type Admin1CodeASCII struct {
 	Codes     string
 	Name      string
-	AsciiName string
+	ASCIIName string
 	GeonameID int64
 }
 
-func Admin1CodesAscii() ([]*Admin1CodeAscii, error) {
+// Admin1CodesASCII returns all admin1 codes encoded in ASCII
+func Admin1CodesASCII() ([]*Admin1CodeASCII, error) {
 	var err error
-	var result []*Admin1CodeAscii
+	var result []*Admin1CodeASCII
 
-	data, err := httpGet(geonamesURL + admin1CodesAsciiURL)
+	data, err := httpGet(geonamesURL + admin1CodesASCIIURL)
 	if err != nil {
 		return nil, err
 	}
@@ -27,10 +29,10 @@ func Admin1CodesAscii() ([]*Admin1CodeAscii, error) {
 
 		geonameID, _ := strconv.ParseInt(string(raw[3]), 10, 64)
 
-		result = append(result, &Admin1CodeAscii{
+		result = append(result, &Admin1CodeASCII{
 			Codes:     string(raw[0]),
 			Name:      string(raw[1]),
-			AsciiName: string(raw[2]),
+			ASCIIName: string(raw[2]),
 			GeonameID: geonameID,
 		})
 

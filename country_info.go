@@ -4,6 +4,7 @@ import "strconv"
 
 const countryInfoURL = "countryInfo.txt"
 
+// Country represents a single country
 type Country struct {
 	Iso2Code           string  // ISO
 	Iso3Code           string  // ISO3
@@ -21,14 +22,15 @@ type Country struct {
 	PostalCodeFormat   string  // Postal Code Format
 	PostalCodeRegex    string  // Postal Code Regex
 	Languages          string  // Languages
-	GeonameId          int64   // geonameid
+	GeonameID          int64   // geonameid
 	Neighbours         string  // neighbours
 	EquivalentFipsCode string  // EquivalentFipsCode
 }
 
-func CountryInfo() ([]*Country, error) {
+// CountryInfo returns a map of all countries
+func CountryInfo() (map[int64]*Country, error) {
 	var err error
-	var result []*Country
+	result := make(map[int64]*Country)
 
 	data, err := httpGet(geonamesURL + countryInfoURL)
 	if err != nil {
@@ -44,7 +46,7 @@ func CountryInfo() ([]*Country, error) {
 		population, _ := strconv.ParseUint(string(raw[7]), 10, 64)
 		geonameID, _ := strconv.ParseInt(string(raw[16]), 10, 64)
 
-		result = append(result, &Country{
+		result[geonameID] = &Country{
 			Iso2Code:           string(raw[0]),
 			Iso3Code:           string(raw[1]),
 			IsoNumeric:         string(raw[2]),
@@ -61,10 +63,10 @@ func CountryInfo() ([]*Country, error) {
 			PostalCodeFormat:   string(raw[13]),
 			PostalCodeRegex:    string(raw[14]),
 			Languages:          string(raw[15]),
-			GeonameId:          geonameID,
+			GeonameID:          geonameID,
 			Neighbours:         string(raw[17]),
 			EquivalentFipsCode: string(raw[18]),
-		})
+		}
 
 		return true
 	})

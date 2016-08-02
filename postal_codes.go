@@ -8,8 +8,9 @@ import (
 	"strings"
 )
 
-const postalCodesUrl = `http://download.geonames.org/export/zip/%s.zip`
+const postalCodesURL = `http://download.geonames.org/export/zip/%s.zip`
 
+// PostalCode represents a single countries postal code
 type PostalCode struct {
 	CountryIso2Code string  // country code      : iso country code, 2 characters
 	PostalCode      string  // postal code       : varchar(20)
@@ -25,6 +26,7 @@ type PostalCode struct {
 	Accuracy        int     // accuracy          : accuracy of lat/lng from 1=estimated to 6=centroi}
 }
 
+// PostalCodes returns all postal codes for the selected countries iso2 code
 func PostalCodes(iso2code string) (map[string]*PostalCode, error) {
 	var err error
 	result := make(map[string]*PostalCode)
@@ -33,7 +35,7 @@ func PostalCodes(iso2code string) (map[string]*PostalCode, error) {
 		return nil, errors.New("invalid iso2code")
 	}
 
-	url := fmt.Sprintf(postalCodesUrl, strings.ToUpper(iso2code))
+	url := fmt.Sprintf(postalCodesURL, strings.ToUpper(iso2code))
 	zipped, err := httpGet(url)
 	if err != nil {
 		return nil, err

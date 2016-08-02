@@ -7,6 +7,7 @@ import (
 
 const timeZonesURL = `timeZones.txt`
 
+// TimeZone represents a single time zone object
 type TimeZone struct {
 	CountryIso2Code string        // CountryCode
 	TimeZoneID      string        // TimeZoneId
@@ -15,6 +16,7 @@ type TimeZone struct {
 	RawOffset       time.Duration // rawOffset (independant of DST)
 }
 
+// TimeZones returns all time zones available
 func TimeZones() ([]*TimeZone, error) {
 	var err error
 	var result []*TimeZone

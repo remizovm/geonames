@@ -15,7 +15,7 @@ func TestCities1000(t *testing.T) {
 		Convey("Result should be correct", func() {
 			So(result, ShouldNotBeNil)
 			So(result, ShouldNotBeEmpty)
-			So(result[3039154].AsciiName, ShouldEqual, "El Tarter")
+			So(result[3039154].ASCIIName, ShouldEqual, "El Tarter")
 		})
 	})
 }
