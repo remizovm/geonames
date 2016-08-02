@@ -12,19 +12,20 @@ import (
 	"time"
 )
 
-const allCountriesUri = `allCountries.zip`
+const allCountriesURI = `allCountries.zip`
 
+// AllCountries returns a big pack of all features of all countries
 func AllCountries() (map[int]*Feature, error) {
 	var err error
 	result := make(map[int]*Feature)
-	url := fmt.Sprintf("%s%s", geonamesURL, allCountriesUri)
+	url := fmt.Sprintf("%s%s", geonamesURL, allCountriesURI)
 
 	dat, err := httpGetNew(url)
 	if err != nil {
 		return nil, err
 	}
 
-	tempPath := getTempPath(allCountriesUri)
+	tempPath := getTempPath(allCountriesURI)
 
 	f, err := writeToFile(tempPath, dat)
 	if err != nil {
@@ -39,7 +40,7 @@ func AllCountries() (map[int]*Feature, error) {
 		return nil, err
 	}
 	defer r.Close()
-	txtName := strings.Replace(allCountriesUri, "zip", "txt", -1)
+	txtName := strings.Replace(allCountriesURI, "zip", "txt", -1)
 	var s *bufio.Scanner
 	for i := range r.File {
 		if r.File[i].Name == txtName {
@@ -63,7 +64,7 @@ func AllCountries() (map[int]*Feature, error) {
 			return true
 		}
 
-		geonameId, err := strconv.Atoi(raw[0])
+		geonameID, err := strconv.Atoi(raw[0])
 		if err != nil {
 			log.Printf("while parsing feature geoname id %s: %s", raw[0], err.Error())
 			return true
@@ -115,10 +116,10 @@ func AllCountries() (map[int]*Feature, error) {
 			return true
 		}
 
-		result[geonameId] = &Feature{
-			GeonameID:        geonameId,
+		result[geonameID] = &Feature{
+			GeonameID:        geonameID,
 			Name:             raw[1],
-			AsciiName:        raw[2],
+			ASCIIName:        raw[2],
 			AlternateNames:   alternateNames,
 			Latitude:         latitude,
 			Longitude:        longitude,

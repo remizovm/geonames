@@ -2,6 +2,7 @@ package geonames
 
 const languageCodesURL = `iso-languagecodes.txt`
 
+// LanguageCode represents a single language
 type LanguageCode struct {
 	Iso3 string
 	Iso2 string
@@ -9,6 +10,7 @@ type LanguageCode struct {
 	Name string
 }
 
+// LanguageCodes returns all available languages
 func LanguageCodes() ([]*LanguageCode, error) {
 	var err error
 	var result []*LanguageCode

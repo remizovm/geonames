@@ -4,13 +4,15 @@ import "strconv"
 
 const admin2CodesURL = `admin2Codes.txt`
 
+// Admin2Code represents a single admin2 code encoded in ASCII
 type Admin2Code struct {
 	Codes     string
 	Name      string
-	AsciiName string
+	ASCIIName string
 	GeonameID int64
 }
 
+// Admin2Codes returns all admin2 codes encoded in ASCII
 func Admin2Codes() ([]*Admin2Code, error) {
 	var err error
 	var result []*Admin2Code
@@ -30,7 +32,7 @@ func Admin2Codes() ([]*Admin2Code, error) {
 		result = append(result, &Admin2Code{
 			Codes:     string(raw[0]),
 			Name:      string(raw[1]),
-			AsciiName: string(raw[2]),
+			ASCIIName: string(raw[2]),
 			GeonameID: geonameID,
 		})
 

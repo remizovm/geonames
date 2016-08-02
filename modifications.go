@@ -9,6 +9,8 @@ import (
 const modificationsURL = `modifications-%d-%02d-%02d.txt`
 const modificationsPattern = `(\d{1,7})\s(.+)`
 
+// Modifications returns all modifications made at the selected date
+// WARNING: WIP
 func Modifications(year, month, day int) (map[string][]string, error) {
 	uri := fmt.Sprintf(modificationsURL, year, month, day)
 
@@ -22,9 +24,9 @@ func Modifications(year, month, day int) (map[string][]string, error) {
 	result := make(map[string][]string)
 
 	for i := range matches {
-		geonameId := matches[i][1]
+		geonameID := matches[i][1]
 		data := strings.Split(matches[i][2], "\t")
-		result[geonameId] = data
+		result[geonameID] = data
 	}
 
 	return result, nil

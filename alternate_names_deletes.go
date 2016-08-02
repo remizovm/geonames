@@ -8,6 +8,7 @@ import (
 
 const alternateNamesdeletesURL = `alternateNamesdeletes-%d-%02d-%02d.txt`
 
+// AlternateNameDeleteOp represents a single operation of feature's AlternateName deletion
 type AlternateNameDeleteOp struct {
 	ID        int
 	GeonameID int
@@ -15,6 +16,7 @@ type AlternateNameDeleteOp struct {
 	Comment   string
 }
 
+// AlternateNamesDeletes returns all deleted alternate names for the selected date
 func AlternateNamesDeletes(year, month, day int) (map[int]*AlternateNameDeleteOp, error) {
 	var err error
 	uri := fmt.Sprintf(alternateNamesdeletesURL, year, month, day)

@@ -8,10 +8,11 @@ import (
 	"time"
 )
 
+// Feature represents a single administrative object - for example, a city
 type Feature struct {
 	GeonameID        int       // geonameid         : integer id of record in geonames database
 	Name             string    // name              : name of geographical point (utf8) varchar(200)
-	AsciiName        string    // asciiname         : name of geographical point in plain ascii characters, varchar(200)
+	ASCIIName        string    // asciiname         : name of geographical point in plain ascii characters, varchar(200)
 	AlternateNames   []string  // alternatenames    : alternatenames, comma separated, ascii names automatically transliterated, convenience attribute from alternatename table, varchar(10000)
 	Latitude         float64   // latitude          : latitude in decimal degrees (wgs84)
 	Longitude        float64   // longitude         : longitude in decimal degrees (wgs84)
@@ -30,6 +31,7 @@ type Feature struct {
 	ModificationDate time.Time // modification date : date of last modification in yyyy-MM-dd format
 }
 
+// Features returns all features for the specified country iso2 code
 func Features(iso2code string) ([]*Feature, error) {
 	var err error
 	var result []*Feature
@@ -59,7 +61,7 @@ func Features(iso2code string) ([]*Feature, error) {
 			return true
 		}
 
-		geonameId, _ := strconv.Atoi(string(raw[0]))
+		geonameID, _ := strconv.Atoi(string(raw[0]))
 
 		alternateNames := strings.Split(string(raw[3]), ",")
 		for i := range alternateNames {
@@ -92,9 +94,9 @@ func Features(iso2code string) ([]*Feature, error) {
 		modificationDate, _ := time.Parse("2006-02-01", string(raw[18]))
 
 		result = append(result, &Feature{
-			GeonameID:        geonameId,
+			GeonameID:        geonameID,
 			Name:             string(raw[1]),
-			AsciiName:        string(raw[2]),
+			ASCIIName:        string(raw[2]),
 			AlternateNames:   alternateNames,
 			Latitude:         latitude,
 			Longitude:        longitude,

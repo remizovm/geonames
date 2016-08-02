@@ -8,6 +8,7 @@ import (
 
 const cities1000URL = `cities1000.zip`
 
+// Cities1000 returns all cities with the population >1000
 func Cities1000() (map[int]*Feature, error) {
 	var err error
 	result := make(map[int]*Feature)
@@ -32,7 +33,7 @@ func Cities1000() (map[int]*Feature, error) {
 			return true
 		}
 
-		geonameId, _ := strconv.Atoi(string(raw[0]))
+		geonameID, _ := strconv.Atoi(string(raw[0]))
 
 		alternateNames := strings.Split(string(raw[3]), ",")
 		for i := range alternateNames {
@@ -64,10 +65,10 @@ func Cities1000() (map[int]*Feature, error) {
 		dem, _ := strconv.Atoi(string(raw[16]))
 		modificationDate, _ := time.Parse("2006-02-01", string(raw[18]))
 
-		result[geonameId] = &Feature{
-			GeonameID:        geonameId,
+		result[geonameID] = &Feature{
+			GeonameID:        geonameID,
 			Name:             string(raw[1]),
-			AsciiName:        string(raw[2]),
+			ASCIIName:        string(raw[2]),
 			AlternateNames:   alternateNames,
 			Latitude:         latitude,
 			Longitude:        longitude,
