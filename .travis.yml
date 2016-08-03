@@ -1,7 +1,14 @@
 language: go
-
 go:
   - 1.6
+  - tip
 
-install:
+before_install:
+  - go get github.com/modocache/gover
+  - go get github.com/mattn/coveralls
   - go get "github.com/smartystreets/goconvey/convey"
+
+script:
+  - go test -coverprofile=geonames.coverprofile
+  - $HOME/gopath/bin/gover
+  - $HOME/gopath/bin/goveralls -coverprofile=gover.coverprofile -service=travis-ci
