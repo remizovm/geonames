@@ -16,20 +16,29 @@ const allCountriesURI = `allCountries.zip`
 
 // AllCountries returns a big pack of all features of all countries
 func AllCountries() (map[int]*Feature, error) {
-	var err error
 	result := make(map[int]*Feature)
+
+	err := CallAllCountries(func(f *Feature) {
+		result[f.GeonameID] = f
+	})
+
+	return result, err
+}
+
+// CallAllCountries calls the passed handler on each extracted feature.
+func CallAllCountries(handler func(*Feature)) error {
 	url := fmt.Sprintf("%s%s", geonamesURL, allCountriesURI)
 
 	dat, err := httpGetNew(url)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	tempPath := getTempPath(allCountriesURI)
 
 	f, err := writeToFile(tempPath, dat)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	dat.Close()
 	defer f.Close()
@@ -37,7 +46,7 @@ func AllCountries() (map[int]*Feature, error) {
 
 	r, err := zip.OpenReader(f.Name())
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer r.Close()
 	txtName := strings.Replace(allCountriesURI, "zip", "txt", -1)
@@ -46,7 +55,7 @@ func AllCountries() (map[int]*Feature, error) {
 		if r.File[i].Name == txtName {
 			rc, e := r.File[i].Open()
 			if e != nil {
-				return nil, e
+				return e
 			}
 			defer rc.Close()
 
@@ -56,7 +65,7 @@ func AllCountries() (map[int]*Feature, error) {
 	}
 
 	if s == nil {
-		return nil, errors.New("unknown error")
+		return errors.New("unknown error")
 	}
 
 	sParse(s, 0, func(raw []string) bool {
@@ -116,7 +125,7 @@ func AllCountries() (map[int]*Feature, error) {
 			return true
 		}
 
-		result[geonameID] = &Feature{
+		handler(&Feature{
 			GeonameID:        geonameID,
 			Name:             raw[1],
 			ASCIIName:        raw[2],
@@ -136,10 +145,10 @@ func AllCountries() (map[int]*Feature, error) {
 			Dem:              dem,
 			TimeZone:         raw[17],
 			ModificationDate: modificationDate,
-		}
+		})
 
 		return true
 	})
 
-	return result, nil
+	return nil
 }
