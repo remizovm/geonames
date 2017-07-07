@@ -1,36 +1,17 @@
 package geonames
 
-import "strconv"
+import (
+	"strconv"
+
+	"github.com/remizovm/geonames/models"
+)
 
 const countryInfoURL = "countryInfo.txt"
 
-// Country represents a single country
-type Country struct {
-	Iso2Code           string  // ISO
-	Iso3Code           string  // ISO3
-	IsoNumeric         string  // ISO-Numeric
-	Fips               string  // fips
-	Name               string  // Country
-	Capital            string  // Capital
-	Area               float64 // Area(in sq km)
-	Population         uint64  // Population
-	Continent          string  // Continent
-	Tld                string  // tld
-	CurrencyCode       string  // CurrencyCode
-	CurrencyName       string  // CurrencyName
-	Phone              string  // Phone
-	PostalCodeFormat   string  // Postal Code Format
-	PostalCodeRegex    string  // Postal Code Regex
-	Languages          string  // Languages
-	GeonameID          int64   // geonameid
-	Neighbours         string  // neighbours
-	EquivalentFipsCode string  // EquivalentFipsCode
-}
-
 // CountryInfo returns a map of all countries
-func (c *Client) CountryInfo() (map[int64]*Country, error) {
+func (c *Client) CountryInfo() (map[int64]*models.Country, error) {
 	var err error
-	result := make(map[int64]*Country)
+	result := make(map[int64]*models.Country)
 
 	data, err := httpGet(geonamesURL + countryInfoURL)
 	if err != nil {
@@ -46,7 +27,7 @@ func (c *Client) CountryInfo() (map[int64]*Country, error) {
 		population, _ := strconv.ParseUint(string(raw[7]), 10, 64)
 		geonameID, _ := strconv.ParseInt(string(raw[16]), 10, 64)
 
-		result[geonameID] = &Country{
+		result[geonameID] = &models.Country{
 			Iso2Code:           string(raw[0]),
 			Iso3Code:           string(raw[1]),
 			IsoNumeric:         string(raw[2]),
