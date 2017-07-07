@@ -4,14 +4,16 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+
+	"github.com/remizovm/geonames/models"
 )
 
 const alternateNamesModificationsURL = `alternateNamesModifications-%d-%02d-%02d.txt`
 
 // AlternateNamesModifications returns all alternate names modified at the selected date
-func AlternateNamesModifications(year, month, day int) (map[int]*AlternateName, error) {
+func (c *Client) AlternateNamesModifications(year, month, day int) (map[int]*models.AlternateName, error) {
 	var err error
-	result := make(map[int]*AlternateName)
+	result := make(map[int]*models.AlternateName)
 
 	uri := fmt.Sprintf(alternateNamesModificationsURL, year, month, day)
 
@@ -36,7 +38,7 @@ func AlternateNamesModifications(year, month, day int) (map[int]*AlternateName, 
 			return true
 		}
 
-		result[geonameID] = &AlternateName{
+		result[geonameID] = &models.AlternateName{
 			ID:              id,
 			GeonameID:       geonameID,
 			IsoLanguage:     string(raw[2]),

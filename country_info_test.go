@@ -8,7 +8,8 @@ import (
 
 func TestCountryInfo(t *testing.T) {
 	Convey("Testing CountryInfo handler", t, func() {
-		result, err := CountryInfo()
+		c := &Client{}
+		result, err := c.CountryInfo()
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})

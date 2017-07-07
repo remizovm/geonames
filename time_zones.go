@@ -3,23 +3,16 @@ package geonames
 import (
 	"strconv"
 	"time"
+
+	"github.com/remizovm/geonames/models"
 )
 
 const timeZonesURL = `timeZones.txt`
 
-// TimeZone represents a single time zone object
-type TimeZone struct {
-	CountryIso2Code string        // CountryCode
-	TimeZoneID      string        // TimeZoneId
-	GmtOffset       time.Duration // GMT offset 1. Jan 2016
-	DstOffset       time.Duration // DST offset 1. Jul 2016
-	RawOffset       time.Duration // rawOffset (independant of DST)
-}
-
 // TimeZones returns all time zones available
-func TimeZones() ([]*TimeZone, error) {
+func (c *Client) TimeZones() ([]*models.TimeZone, error) {
 	var err error
-	var result []*TimeZone
+	var result []*models.TimeZone
 
 	data, err := httpGet(geonamesURL + timeZonesURL)
 	if err != nil {
@@ -35,7 +28,7 @@ func TimeZones() ([]*TimeZone, error) {
 		dstOffset, _ := strconv.ParseFloat(string(raw[3]), 64)
 		rawOffset, _ := strconv.ParseFloat(string(raw[4]), 64)
 
-		result = append(result, &TimeZone{
+		result = append(result, &models.TimeZone{
 			CountryIso2Code: string(raw[0]),
 			TimeZoneID:      string(raw[1]),
 			GmtOffset:       time.Duration(gmtOffset) * time.Hour,

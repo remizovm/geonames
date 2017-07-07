@@ -8,7 +8,8 @@ import (
 
 func TestAdmin2Codes(t *testing.T) {
 	Convey("Test Admin2Codes handler", t, func() {
-		result, err := Admin2Codes()
+		c := &Client{}
+		result, err := c.Admin2Codes()
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})

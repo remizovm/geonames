@@ -1,19 +1,13 @@
 package geonames
 
+import "github.com/remizovm/geonames/models"
+
 const languageCodesURL = `iso-languagecodes.txt`
 
-// LanguageCode represents a single language
-type LanguageCode struct {
-	Iso3 string
-	Iso2 string
-	Iso  string
-	Name string
-}
-
 // LanguageCodes returns all available languages
-func LanguageCodes() ([]*LanguageCode, error) {
+func (c *Client) LanguageCodes() ([]*models.LanguageCode, error) {
 	var err error
-	var result []*LanguageCode
+	var result []*models.LanguageCode
 
 	data, err := httpGet(geonamesURL + languageCodesURL)
 	if err != nil {
@@ -25,7 +19,7 @@ func LanguageCodes() ([]*LanguageCode, error) {
 			return true
 		}
 
-		result = append(result, &LanguageCode{
+		result = append(result, &models.LanguageCode{
 			Iso3: string(raw[0]),
 			Iso2: string(raw[1]),
 			Iso:  string(raw[2]),

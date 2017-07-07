@@ -4,19 +4,14 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+
+	"github.com/remizovm/geonames/models"
 )
 
 const deletesURL = `deletes-%d-%02d-%02d.txt`
 
-// DeleteOp represents a single object deletion operation
-type DeleteOp struct {
-	GeonameID int
-	Name      string
-	Comment   string
-}
-
 // Deletes returns all deleted objects for the selected date
-func Deletes(year, month, day int) (map[int]*DeleteOp, error) {
+func (c *Client) Deletes(year, month, day int) (map[int]*models.DeleteOp, error) {
 	var err error
 	uri := fmt.Sprintf(deletesURL, year, month, day)
 
@@ -25,7 +20,7 @@ func Deletes(year, month, day int) (map[int]*DeleteOp, error) {
 		return nil, err
 	}
 
-	result := make(map[int]*DeleteOp)
+	result := make(map[int]*models.DeleteOp)
 	parse(data, 0, func(raw [][]byte) bool {
 		if len(raw) != 3 {
 			return true
@@ -37,7 +32,7 @@ func Deletes(year, month, day int) (map[int]*DeleteOp, error) {
 			return true
 		}
 
-		result[geonameID] = &DeleteOp{
+		result[geonameID] = &models.DeleteOp{
 			Name:    string(raw[1]),
 			Comment: string(raw[2])}
 		return true

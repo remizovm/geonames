@@ -8,7 +8,8 @@ import (
 
 func TestFeatures(t *testing.T) {
 	Convey("Test Features handler", t, func() {
-		result, err := Features("UA")
+		c := &Client{}
+		result, err := c.Features("UA")
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})

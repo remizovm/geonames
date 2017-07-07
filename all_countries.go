@@ -10,15 +10,17 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/remizovm/geonames/models"
 )
 
 const allCountriesURI = `allCountries.zip`
 
 // AllCountries returns a big pack of all features of all countries
-func AllCountries() (map[int]*Feature, error) {
-	result := make(map[int]*Feature)
+func (c *Client) AllCountries() (map[int]*models.Feature, error) {
+	result := make(map[int]*models.Feature)
 
-	err := CallAllCountries(func(f *Feature) {
+	err := CallAllCountries(func(f *models.Feature) {
 		result[f.GeonameID] = f
 	})
 
@@ -26,7 +28,7 @@ func AllCountries() (map[int]*Feature, error) {
 }
 
 // CallAllCountries calls the passed handler on each extracted feature.
-func CallAllCountries(handler func(*Feature)) error {
+func CallAllCountries(handler func(*models.Feature)) error {
 	url := fmt.Sprintf("%s%s", geonamesURL, allCountriesURI)
 
 	dat, err := httpGetNew(url)
@@ -125,7 +127,7 @@ func CallAllCountries(handler func(*Feature)) error {
 			return true
 		}
 
-		handler(&Feature{
+		handler(&models.Feature{
 			GeonameID:        geonameID,
 			Name:             raw[1],
 			ASCIIName:        raw[2],

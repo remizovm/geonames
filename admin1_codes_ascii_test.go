@@ -8,7 +8,8 @@ import (
 
 func TestAdmin1CodesAscii(t *testing.T) {
 	Convey("Test Admin1CodesAscii handler", t, func() {
-		result, err := Admin1CodesASCII()
+		c := &Client{}
+		result, err := c.Admin1CodesASCII()
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})

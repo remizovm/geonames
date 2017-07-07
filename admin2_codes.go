@@ -1,21 +1,17 @@
 package geonames
 
-import "strconv"
+import (
+	"strconv"
+
+	"github.com/remizovm/geonames/models"
+)
 
 const admin2CodesURL = `admin2Codes.txt`
 
-// Admin2Code represents a single admin2 code encoded in ASCII
-type Admin2Code struct {
-	Codes     string
-	Name      string
-	ASCIIName string
-	GeonameID int64
-}
-
 // Admin2Codes returns all admin2 codes encoded in ASCII
-func Admin2Codes() ([]*Admin2Code, error) {
+func (c *Client) Admin2Codes() ([]*models.AdminCode, error) {
 	var err error
-	var result []*Admin2Code
+	var result []*models.AdminCode
 
 	data, err := httpGet(geonamesURL + admin2CodesURL)
 	if err != nil {
@@ -29,7 +25,7 @@ func Admin2Codes() ([]*Admin2Code, error) {
 
 		geonameID, _ := strconv.ParseInt(string(raw[3]), 10, 64)
 
-		result = append(result, &Admin2Code{
+		result = append(result, &models.AdminCode{
 			Codes:     string(raw[0]),
 			Name:      string(raw[1]),
 			ASCIIName: string(raw[2]),

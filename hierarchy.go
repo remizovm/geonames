@@ -3,23 +3,18 @@ package geonames
 import (
 	"log"
 	"strconv"
+
+	"github.com/remizovm/geonames/models"
 )
 
 const hierarchyURL = `hierarchy.zip`
 
-// HierarchyNode represents a pair of parent and child objects linked together
-type HierarchyNode struct {
-	ParentID int
-	ChildID  int
-	Type     string
-}
-
 // Hierarchy returns all available pairs of linked parents and children
 // For example, a city is linked to it's country as a child:
 // Country->City1,City2 etc
-func Hierarchy() (map[int][]*HierarchyNode, error) {
+func (c *Client) Hierarchy() (map[int][]*models.HierarchyNode, error) {
 	var err error
-	result := make(map[int][]*HierarchyNode)
+	result := make(map[int][]*models.HierarchyNode)
 
 	zipped, err := httpGet(geonamesURL + hierarchyURL)
 	if err != nil {
@@ -51,7 +46,7 @@ func Hierarchy() (map[int][]*HierarchyNode, error) {
 			return true
 		}
 
-		result[parentID] = append(result[parentID], &HierarchyNode{
+		result[parentID] = append(result[parentID], &models.HierarchyNode{
 			ParentID: parentID,
 			ChildID:  childID,
 			Type:     string(raw[2])})

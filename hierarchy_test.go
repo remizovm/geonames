@@ -8,7 +8,8 @@ import (
 
 func TestHierarchy(t *testing.T) {
 	Convey("Testing Hierarchy handler", t, func() {
-		result, err := Hierarchy()
+		c := &Client{}
+		result, err := c.Hierarchy()
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})
