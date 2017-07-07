@@ -4,20 +4,14 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+
+	"github.com/remizovm/geonames/models"
 )
 
 const alternateNamesdeletesURL = `alternateNamesdeletes-%d-%02d-%02d.txt`
 
-// AlternateNameDeleteOp represents a single operation of feature's AlternateName deletion
-type AlternateNameDeleteOp struct {
-	ID        int
-	GeonameID int
-	Name      string
-	Comment   string
-}
-
 // AlternateNamesDeletes returns all deleted alternate names for the selected date
-func (c *Client) AlternateNamesDeletes(year, month, day int) (map[int]*AlternateNameDeleteOp, error) {
+func (c *Client) AlternateNamesDeletes(year, month, day int) (map[int]*models.AlternateNameDeleteOp, error) {
 	var err error
 	uri := fmt.Sprintf(alternateNamesdeletesURL, year, month, day)
 
@@ -26,7 +20,7 @@ func (c *Client) AlternateNamesDeletes(year, month, day int) (map[int]*Alternate
 		return nil, err
 	}
 
-	result := make(map[int]*AlternateNameDeleteOp)
+	result := make(map[int]*models.AlternateNameDeleteOp)
 	parse(data, 0, func(raw [][]byte) bool {
 		if len(raw) != 4 {
 			return true
@@ -44,7 +38,7 @@ func (c *Client) AlternateNamesDeletes(year, month, day int) (map[int]*Alternate
 			return true
 		}
 
-		result[geonameID] = &AlternateNameDeleteOp{
+		result[geonameID] = &models.AlternateNameDeleteOp{
 			ID:        id,
 			GeonameID: geonameID,
 			Name:      string(raw[2]),
