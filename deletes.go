@@ -16,7 +16,7 @@ type DeleteOp struct {
 }
 
 // Deletes returns all deleted objects for the selected date
-func Deletes(year, month, day int) (map[int]*DeleteOp, error) {
+func (c *Client) Deletes(year, month, day int) (map[int]*DeleteOp, error) {
 	var err error
 	uri := fmt.Sprintf(deletesURL, year, month, day)
 

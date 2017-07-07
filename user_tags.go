@@ -8,7 +8,7 @@ import (
 const userTagsURL = `userTags.zip`
 
 // UserTags returns all available user tags for any objects of the system
-func UserTags() (map[int][]string, error) {
+func (c *Client) UserTags() (map[int][]string, error) {
 	var err error
 
 	zipped, err := httpGet(geonamesURL + userTagsURL)

@@ -13,7 +13,7 @@ type Admin1CodeASCII struct {
 }
 
 // Admin1CodesASCII returns all admin1 codes encoded in ASCII
-func Admin1CodesASCII() ([]*Admin1CodeASCII, error) {
+func (c *Client) Admin1CodesASCII() ([]*Admin1CodeASCII, error) {
 	var err error
 	var result []*Admin1CodeASCII
 

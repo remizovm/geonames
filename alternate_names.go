@@ -20,7 +20,7 @@ type AlternateName struct {
 }
 
 // AlternateNames returns alternate names for all features available
-func AlternateNames() ([]*AlternateName, error) {
+func (c *Client) AlternateNames() ([]*AlternateName, error) {
 	var err error
 	var result []*AlternateName
 

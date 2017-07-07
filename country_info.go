@@ -28,7 +28,7 @@ type Country struct {
 }
 
 // CountryInfo returns a map of all countries
-func CountryInfo() (map[int64]*Country, error) {
+func (c *Client) CountryInfo() (map[int64]*Country, error) {
 	var err error
 	result := make(map[int64]*Country)
 

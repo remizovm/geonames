@@ -9,7 +9,7 @@ import (
 const cities5000URL = `cities5000.zip`
 
 // Cities5000 returns all cities with the population >5000
-func Cities5000() (map[int]*Feature, error) {
+func (c *Client) Cities5000() (map[int]*Feature, error) {
 	var err error
 	result := make(map[int]*Feature)
 

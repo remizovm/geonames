@@ -8,7 +8,8 @@ import (
 
 func TestUserTags(t *testing.T) {
 	Convey("Testing UserTags handler", t, func() {
-		result, err := UserTags()
+		c := &Client{}
+		result, err := c.UserTags()
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})

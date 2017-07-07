@@ -8,7 +8,8 @@ import (
 
 func TestCities5000(t *testing.T) {
 	Convey("Test Cities5000 handler", t, func() {
-		result, err := Cities5000()
+		c := &Client{}
+		result, err := c.Cities5000()
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})

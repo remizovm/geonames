@@ -8,7 +8,8 @@ import (
 
 func TestLanguageCodes(t *testing.T) {
 	Convey("Testing LanguageCodes handler", t, func() {
-		result, err := LanguageCodes()
+		c := &Client{}
+		result, err := c.LanguageCodes()
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})

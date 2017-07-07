@@ -8,7 +8,8 @@ import (
 
 func TestPostalCodes(t *testing.T) {
 	Convey("Testing PostalCodes handler", t, func() {
-		result, err := PostalCodes("AD")
+		c := &Client{}
+		result, err := c.PostalCodes("AD")
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})

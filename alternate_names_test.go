@@ -8,7 +8,8 @@ import (
 
 func TestAlternateNames(t *testing.T) {
 	Convey("Test AlternateNames handler", t, func() {
-		result, err := AlternateNames()
+		c := &Client{}
+		result, err := c.AlternateNames()
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})

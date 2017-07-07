@@ -17,7 +17,7 @@ type HierarchyNode struct {
 // Hierarchy returns all available pairs of linked parents and children
 // For example, a city is linked to it's country as a child:
 // Country->City1,City2 etc
-func Hierarchy() (map[int][]*HierarchyNode, error) {
+func (c *Client) Hierarchy() (map[int][]*HierarchyNode, error) {
 	var err error
 	result := make(map[int][]*HierarchyNode)
 

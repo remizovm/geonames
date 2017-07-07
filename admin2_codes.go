@@ -13,7 +13,7 @@ type Admin2Code struct {
 }
 
 // Admin2Codes returns all admin2 codes encoded in ASCII
-func Admin2Codes() ([]*Admin2Code, error) {
+func (c *Client) Admin2Codes() ([]*Admin2Code, error) {
 	var err error
 	var result []*Admin2Code
 

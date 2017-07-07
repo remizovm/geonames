@@ -17,7 +17,7 @@ type AlternateNameDeleteOp struct {
 }
 
 // AlternateNamesDeletes returns all deleted alternate names for the selected date
-func AlternateNamesDeletes(year, month, day int) (map[int]*AlternateNameDeleteOp, error) {
+func (c *Client) AlternateNamesDeletes(year, month, day int) (map[int]*AlternateNameDeleteOp, error) {
 	var err error
 	uri := fmt.Sprintf(alternateNamesdeletesURL, year, month, day)
 

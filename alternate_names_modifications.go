@@ -9,7 +9,7 @@ import (
 const alternateNamesModificationsURL = `alternateNamesModifications-%d-%02d-%02d.txt`
 
 // AlternateNamesModifications returns all alternate names modified at the selected date
-func AlternateNamesModifications(year, month, day int) (map[int]*AlternateName, error) {
+func (c *Client) AlternateNamesModifications(year, month, day int) (map[int]*AlternateName, error) {
 	var err error
 	result := make(map[int]*AlternateName)
 

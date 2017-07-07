@@ -32,7 +32,7 @@ type Feature struct {
 }
 
 // Features returns all features for the specified country iso2 code
-func Features(iso2code string) ([]*Feature, error) {
+func (c *Client) Features(iso2code string) ([]*Feature, error) {
 	var err error
 	var result []*Feature
 

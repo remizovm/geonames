@@ -11,7 +11,7 @@ type LanguageCode struct {
 }
 
 // LanguageCodes returns all available languages
-func LanguageCodes() ([]*LanguageCode, error) {
+func (c *Client) LanguageCodes() ([]*LanguageCode, error) {
 	var err error
 	var result []*LanguageCode
 

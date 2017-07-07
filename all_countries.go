@@ -15,7 +15,7 @@ import (
 const allCountriesURI = `allCountries.zip`
 
 // AllCountries returns a big pack of all features of all countries
-func AllCountries() (map[int]*Feature, error) {
+func (c *Client) AllCountries() (map[int]*Feature, error) {
 	result := make(map[int]*Feature)
 
 	err := CallAllCountries(func(f *Feature) {

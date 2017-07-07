@@ -17,7 +17,7 @@ type TimeZone struct {
 }
 
 // TimeZones returns all time zones available
-func TimeZones() ([]*TimeZone, error) {
+func (c *Client) TimeZones() ([]*TimeZone, error) {
 	var err error
 	var result []*TimeZone
 

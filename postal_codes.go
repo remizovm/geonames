@@ -27,7 +27,7 @@ type PostalCode struct {
 }
 
 // PostalCodes returns all postal codes for the selected countries iso2 code
-func PostalCodes(iso2code string) (map[string]*PostalCode, error) {
+func (c *Client) PostalCodes(iso2code string) (map[string]*PostalCode, error) {
 	var err error
 	result := make(map[string]*PostalCode)
 

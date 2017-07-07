@@ -8,7 +8,8 @@ import (
 
 func TestTimeZones(t *testing.T) {
 	Convey("Testing TimeZones handler", t, func() {
-		result, err := TimeZones()
+		c := &Client{}
+		result, err := c.TimeZones()
 		Convey("We should not get an error", func() {
 			So(err, ShouldBeNil)
 		})
