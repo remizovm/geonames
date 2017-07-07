@@ -1,8 +1,6 @@
 sudo: false
 language: go
 go:
-  - 1.5
-  - 1.6
   - tip
 
 matrix:
@@ -12,7 +10,7 @@ matrix:
 before_install:
   - go get github.com/modocache/gover
   - go get github.com/mattn/goveralls
-  - go get "github.com/smartystreets/goconvey/convey"
+  - go get github.com/smartystreets/goconvey/convey
 
 script:
   - go test -coverprofile=geonames.coverprofile
