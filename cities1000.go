@@ -4,14 +4,16 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/remizovm/geonames/models"
 )
 
 const cities1000URL = `cities1000.zip`
 
 // Cities1000 returns all cities with the population >1000
-func (c *Client) Cities1000() (map[int]*Feature, error) {
+func (c *Client) Cities1000() (map[int]*models.Feature, error) {
 	var err error
-	result := make(map[int]*Feature)
+	result := make(map[int]*models.Feature)
 
 	zipped, err := httpGet(geonamesURL + cities1000URL)
 	if err != nil {
@@ -65,7 +67,7 @@ func (c *Client) Cities1000() (map[int]*Feature, error) {
 		dem, _ := strconv.Atoi(string(raw[16]))
 		modificationDate, _ := time.Parse("2006-02-01", string(raw[18]))
 
-		result[geonameID] = &Feature{
+		result[geonameID] = &models.Feature{
 			GeonameID:        geonameID,
 			Name:             string(raw[1]),
 			ASCIIName:        string(raw[2]),
