@@ -10,7 +10,8 @@ import (
 const shapesAllLowURL = "shapes_all_low.zip"
 
 type GeoJSON struct {
-	Type         string `json:"type"`
+	Type         string      `json:"type"`
+	Raw          interface{} `json:"coordinates"`
 	Polygon      [][][]float64
 	MultiPolygon [][][][]float64
 }
@@ -85,6 +86,29 @@ func decodePolygon(data interface{}) ([][][]float64, error) {
 	return result, nil
 }
 
+func decodeGeoJSON(obj *GeoJSON) error {
+	switch obj.Type {
+	case "Polygon":
+		polygon, err := decodePolygon(obj.Raw)
+		if err != nil {
+			return err
+		}
+		obj.Polygon = polygon
+		break
+	case "MultiPolygon":
+		multiPolygon, err := decodePolygonSet(obj.Raw)
+		if err != nil {
+			return err
+		}
+		obj.MultiPolygon = multiPolygon
+		break
+	default:
+		log.Fatalf("unknown geometry type %s", obj.Type)
+	}
+	obj.Raw = nil // Get rid of processed raw coords to free up some memory
+	return nil
+}
+
 func (c *Client) Shapes() ([]Shape, error) {
 	zipped, err := httpGet(geonamesURL + shapesAllLowURL)
 	if err != nil {
@@ -101,33 +125,12 @@ func (c *Client) Shapes() ([]Shape, error) {
 	result := []Shape{}
 	parse(data, 1, func(raw [][]byte) bool {
 		geonameID, _ := strconv.Atoi(string(raw[0]))
-		var rawGeoJSON struct {
-			Type   string      `json:"type"`
-			Coords interface{} `json:"coordinates"`
+		geoJSON := GeoJSON{}
+		if err := json.Unmarshal(raw[1], &geoJSON); err != nil {
+			log.Fatal(err)
 		}
-		if err := json.Unmarshal(raw[1], &rawGeoJSON); err != nil {
-			panic(err)
-		}
-		geoJSON := GeoJSON{
-			Type: rawGeoJSON.Type,
-		}
-		switch rawGeoJSON.Type {
-		case "Polygon":
-			polygon, err := decodePolygon(rawGeoJSON.Coords)
-			if err != nil {
-				panic(err)
-			}
-			geoJSON.Polygon = polygon
-			break
-		case "MultiPolygon":
-			multiPolygon, err := decodePolygonSet(rawGeoJSON.Coords)
-			if err != nil {
-				panic(err)
-			}
-			geoJSON.MultiPolygon = multiPolygon
-			break
-		default:
-			log.Fatalf("unknown geometry type %s", rawGeoJSON.Type)
+		if err := decodeGeoJSON(&geoJSON); err != nil {
+			log.Fatalf("while decoding geoJSON: %s", err)
 		}
 		shape := Shape{
 			GeonameID: geonameID,
