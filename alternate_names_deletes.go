@@ -15,7 +15,7 @@ func (c *Client) AlternateNamesDeletes(year, month, day int) (map[int]*models.Al
 	var err error
 	uri := fmt.Sprintf(alternateNamesdeletesURL, year, month, day)
 
-	data, err := httpGet(geonamesURL + uri)
+	data, err := c.httpGet(geonamesURL + uri)
 	if err != nil {
 		return nil, err
 	}

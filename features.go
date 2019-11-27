@@ -20,7 +20,7 @@ func (c *Client) Features(iso2code string) ([]*models.Feature, error) {
 	}
 
 	uri := fmt.Sprintf("%s%s.zip", geonamesURL, strings.ToUpper(iso2code))
-	zipped, err := httpGet(uri)
+	zipped, err := c.httpGet(uri)
 	if err != nil {
 		return nil, err
 	}

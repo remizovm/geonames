@@ -13,7 +13,7 @@ func (c *Client) Admin2Codes() ([]*models.AdminCode, error) {
 	var err error
 	var result []*models.AdminCode
 
-	data, err := httpGet(geonamesURL + admin2CodesURL)
+	data, err := c.httpGet(geonamesURL + admin2CodesURL)
 	if err != nil {
 		return nil, err
 	}

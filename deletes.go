@@ -15,7 +15,7 @@ func (c *Client) Deletes(year, month, day int) (map[int]*models.DeleteOp, error)
 	var err error
 	uri := fmt.Sprintf(deletesURL, year, month, day)
 
-	data, err := httpGet(geonamesURL + uri)
+	data, err := c.httpGet(geonamesURL + uri)
 	if err != nil {
 		return nil, err
 	}

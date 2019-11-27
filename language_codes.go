@@ -9,7 +9,7 @@ func (c *Client) LanguageCodes() ([]*models.LanguageCode, error) {
 	var err error
 	var result []*models.LanguageCode
 
-	data, err := httpGet(geonamesURL + languageCodesURL)
+	data, err := c.httpGet(geonamesURL + languageCodesURL)
 	if err != nil {
 		return nil, err
 	}

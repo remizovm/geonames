@@ -16,14 +16,15 @@ func TestGetRaw(t *testing.T) {
 		txtName := "timeZones.txt"
 		txtURL := geonamesURL + txtName
 
-		s, err = getRaw(txtURL, txtName)
+		c := &Client{}
+		s, err = c.getRaw(txtURL, txtName)
 		So(err, ShouldBeNil)
 		So(s, ShouldNotBeNil)
 
 		zipName := "AD.zip"
 		zipURL := fmt.Sprintf("http://download.geonames.org/export/zip/%s.zip", "AD")
 
-		s, err = getRaw(zipURL, zipName)
+		s, err = c.getRaw(zipURL, zipName)
 		So(err, ShouldBeNil)
 		So(s, ShouldNotBeNil)
 	})
