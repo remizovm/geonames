@@ -9,7 +9,6 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
 	"path"
 	"strings"
@@ -41,9 +40,9 @@ func writeToFile(fileName string, data io.ReadCloser) (*os.File, error) {
 	return file, nil
 }
 
-func getRaw(url, name string) (*bufio.Scanner, error) {
+func (c *Client) getRaw(url, name string) (*bufio.Scanner, error) {
 	var err error
-	resp, err := http.Get(url)
+	resp, err := c.c.Get(url)
 	if err != nil {
 		return nil, err
 	}
@@ -103,9 +102,9 @@ func getRaw(url, name string) (*bufio.Scanner, error) {
 	return result, nil
 }
 
-func httpGet(url string) ([]byte, error) {
+func (c *Client) httpGet(url string) ([]byte, error) {
 	var err error
-	resp, err := http.Get(url)
+	resp, err := c.c.Get(url)
 	if err != nil {
 		return nil, err
 	}
@@ -113,9 +112,9 @@ func httpGet(url string) ([]byte, error) {
 	return ioutil.ReadAll(resp.Body)
 }
 
-func httpGetNew(url string) (io.ReadCloser, error) {
+func (c *Client) httpGetNew(url string) (io.ReadCloser, error) {
 	var err error
-	resp, err := http.Get(url)
+	resp, err := c.c.Get(url)
 	if err != nil {
 		return nil, err
 	}

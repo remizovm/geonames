@@ -16,7 +16,7 @@ func (c *Client) Hierarchy() (map[int][]*models.HierarchyNode, error) {
 	var err error
 	result := make(map[int][]*models.HierarchyNode)
 
-	zipped, err := httpGet(geonamesURL + hierarchyURL)
+	zipped, err := c.httpGet(geonamesURL + hierarchyURL)
 	if err != nil {
 		return nil, err
 	}

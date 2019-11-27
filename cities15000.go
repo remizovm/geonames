@@ -15,7 +15,7 @@ func (c *Client) Cities15000() (map[int]*models.Feature, error) {
 	var err error
 	result := make(map[int]*models.Feature)
 
-	zipped, err := httpGet(geonamesURL + cities15000URL)
+	zipped, err := c.httpGet(geonamesURL + cities15000URL)
 	if err != nil {
 		return nil, err
 	}

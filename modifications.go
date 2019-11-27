@@ -14,7 +14,7 @@ const modificationsPattern = `(\d{1,7})\s(.+)`
 func (c *Client) Modifications(year, month, day int) (map[string][]string, error) {
 	uri := fmt.Sprintf(modificationsURL, year, month, day)
 
-	data, err := httpGet(geonamesURL + uri)
+	data, err := c.httpGet(geonamesURL + uri)
 	if err != nil {
 		return nil, err
 	}

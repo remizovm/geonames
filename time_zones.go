@@ -14,7 +14,7 @@ func (c *Client) TimeZones() ([]*models.TimeZone, error) {
 	var err error
 	var result []*models.TimeZone
 
-	data, err := httpGet(geonamesURL + timeZonesURL)
+	data, err := c.httpGet(geonamesURL + timeZonesURL)
 	if err != nil {
 		return nil, err
 	}

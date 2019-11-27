@@ -17,7 +17,7 @@ func (c *Client) AlternateNamesModifications(year, month, day int) (map[int]*mod
 
 	uri := fmt.Sprintf(alternateNamesModificationsURL, year, month, day)
 
-	data, err := httpGet(geonamesURL + uri)
+	data, err := c.httpGet(geonamesURL + uri)
 	if err != nil {
 		return nil, err
 	}

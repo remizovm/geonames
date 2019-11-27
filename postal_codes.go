@@ -22,7 +22,7 @@ func (c *Client) PostalCodes(iso2code string) (map[string]*models.PostalCode, er
 	}
 
 	url := fmt.Sprintf(postalCodesURL, strings.ToUpper(iso2code))
-	zipped, err := httpGet(url)
+	zipped, err := c.httpGet(url)
 	if err != nil {
 		return nil, err
 	}

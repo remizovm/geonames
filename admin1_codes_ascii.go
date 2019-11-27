@@ -13,7 +13,7 @@ func (c *Client) Admin1CodesASCII() ([]*models.AdminCode, error) {
 	var err error
 	var result []*models.AdminCode
 
-	data, err := httpGet(geonamesURL + admin1CodesASCIIURL)
+	data, err := c.httpGet(geonamesURL + admin1CodesASCIIURL)
 	if err != nil {
 		return nil, err
 	}

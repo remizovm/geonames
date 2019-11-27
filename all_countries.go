@@ -20,7 +20,7 @@ const allCountriesURI = `allCountries.zip`
 func (c *Client) AllCountries() (map[int]*models.Feature, error) {
 	result := make(map[int]*models.Feature)
 
-	err := CallAllCountries(func(f *models.Feature) {
+	err := c.CallAllCountries(func(f *models.Feature) {
 		result[f.GeonameID] = f
 	})
 
@@ -28,10 +28,10 @@ func (c *Client) AllCountries() (map[int]*models.Feature, error) {
 }
 
 // CallAllCountries calls the passed handler on each extracted feature.
-func CallAllCountries(handler func(*models.Feature)) error {
+func (c *Client) CallAllCountries(handler func(*models.Feature)) error {
 	url := fmt.Sprintf("%s%s", geonamesURL, allCountriesURI)
 
-	dat, err := httpGetNew(url)
+	dat, err := c.httpGetNew(url)
 	if err != nil {
 		return err
 	}

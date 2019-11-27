@@ -14,7 +14,7 @@ func (c *Client) AlternateNames() ([]*models.AlternateName, error) {
 	var err error
 	var result []*models.AlternateName
 
-	zipped, err := httpGet(geonamesURL + alternateNamesURL)
+	zipped, err := c.httpGet(geonamesURL + alternateNamesURL)
 	if err != nil {
 		return nil, err
 	}
